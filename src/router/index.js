@@ -8,6 +8,10 @@ const router = createRouter({
       path: '/login',
       name: 'login',
       component: ()=> import("@/views/login.vue"),
+      meta: {
+        title: '登陆',
+        hidden: true,
+      }
     },
     {
       path: '/',
@@ -20,7 +24,7 @@ const router = createRouter({
       },
       children: [
         {
-          path: "/home",
+          path: '/home',
           component: ()=> import("@/views/home.vue"),
           name: 'home',
           meta: {
@@ -42,7 +46,7 @@ const router = createRouter({
       },
       children: [
         {
-          path: "/staff/staffList",
+          path: '/staff/staffList',
           component: ()=> import("@/views/staff/staffList.vue"),
           name: 'staff',
           meta: {
@@ -50,7 +54,29 @@ const router = createRouter({
             keepAlive: true,
             auth: true
           }
-        }
+        },
+        {
+          path: '/staff/staffCreate',
+          component: ()=> import("@/views/staff/staffEdit.vue"),
+          name: 'staffCreate',
+          meta: {
+            title: '新增员工',
+            keepAlive: true,
+            auth: true,
+            hidden: true,
+          }
+        },
+        {
+          path: '/staff/staffUpdate',
+          component: ()=> import("@/views/staff/staffEdit.vue"),
+          name: 'staffUpdate',
+          meta: {
+            title: '修改员工',
+            keepAlive: true,
+            auth: true,
+            hidden: true,
+          }
+        },
       ]
     }
   ]

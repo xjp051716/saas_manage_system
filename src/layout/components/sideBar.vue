@@ -1,6 +1,5 @@
 <script setup>
-  const router = useRouter();
-  const menu = router.options.routes.filter(item=> item.path != '/login')
+  const menu = useRouter().options.routes;
 </script>
 
 <template>
@@ -12,18 +11,22 @@
     text-color="#fff"
     router
   >
-    <el-sub-menu
-      v-for="route in menu"
-      :index="route.path"
-    >
-      <template #title>
-        <span class="iconfont" :class="route.meta.icon"></span>
-        <span>{{route.meta.title}}</span>
-      </template>
-      <el-menu-item v-for="subRoute in route.children" :index="subRoute.path">
-        {{subRoute.meta.title}}
-      </el-menu-item>
-    </el-sub-menu>
+    <template v-for="route in menu" :key="route.path">
+      <el-sub-menu
+        v-if="!route.meta.hidden"
+        :index="route.path"
+      >
+        <template #title>
+          <span class="iconfont" :class="route.meta.icon"></span>
+          <span>{{route.meta.title}}</span>
+        </template>
+        <template v-for="subRoute in route.children" :key="subRoute.path">
+          <el-menu-item v-if="!subRoute.meta.hidden" :index="subRoute.path">
+            {{subRoute.meta.title}}
+          </el-menu-item>
+        </template>
+      </el-sub-menu>
+    </template>
   </el-menu>
 </template>
 

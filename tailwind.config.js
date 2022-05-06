@@ -1,5 +1,5 @@
 module.exports = {
-  // purge: ['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}'], //指定所有page，使生产构建中对未使用的样式摇树优化
+  purge: ['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}'], //指定所有page，使生产构建中对未使用的样式摇树优化
   presets: [
     require("./src/assets/css/element.js")
   ],
