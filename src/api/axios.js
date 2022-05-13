@@ -1,6 +1,4 @@
 import axios from "axios";
-import { ElLoading, ElMessage } from "element-plus";
-import { nextTick } from "vue";
 import router from "../router";
 
 let options = {
@@ -25,6 +23,7 @@ let loadingInstance;
 //请求拦截
 axiosInstance.interceptors.request.use(
   config => {
+    if(!config.headers.Authorization) config.headers.Authorization = localStorage.getItem("token")
     if(config.data) {
       for(let item in config.data) {
         if(typeof(config.data[item]) === 'string') {
@@ -32,12 +31,12 @@ axiosInstance.interceptors.request.use(
         }
       }
     }
-    loadingInstance = ElLoading.service(loadings)
+    if(config.method == 'get') loadingInstance = ElLoading.service(loadings)
     return config;
   },
   error => {
     nextTick(()=> {
-      loadingInstance.close()
+      if(loadingInstance) loadingInstance.close()
     })
     return Promise.reject(error);
   }
@@ -47,22 +46,29 @@ axiosInstance.interceptors.request.use(
 axiosInstance.interceptors.response.use(
   response => {
     nextTick(()=> {
-      loadingInstance.close()
+      if(loadingInstance) loadingInstance.close()
     })
     return Promise.resolve(response);
   },
   error => {
     nextTick(()=> {
-      loadingInstance.close()
+      if(loadingInstance) loadingInstance.close()
     })
     let { response } = error;
     let msg = JSON.parse(error.request.responseText).detail
-    if(response.status == 401) {
+    // console.log(response.status)
+    if(response.status == 600) {
       localStorage.setItem("token", '');
-      ElMessage.error(msg);
+      ElMessage({
+        type: 'error',
+        message: msg
+      });
       router.push('/login');
     }else {
-      ElMessage.error(msg);
+      ElMessage({
+        type: 'error',
+        message: msg
+      });
     }
     return Promise.reject(error);
   }

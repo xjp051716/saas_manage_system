@@ -21,25 +21,27 @@
 </script>
 
 <template>
-  <nav-bar></nav-bar>
-  <el-container>
-    <el-aside width="201px" class="bg-aside">
-      <side-bar></side-bar>
-    </el-aside>
-    <el-main>
-      <el-scrollbar>
-        <el-breadcrumb :separator-icon="ArrowRight">
-          <el-breadcrumb-item v-for="(item,index) in crumbList.matched" :to="index == crumbList.length - 1 ? '' : item.path">{{item.meta.title}}</el-breadcrumb-item>
-        </el-breadcrumb>
-        <router-view v-slot="{ Component, route }">
-          <keep-alive v-if="route.meta.keepAlive">
-            <Component :is="Component"/>
-          </keep-alive>
-          <Component v-else :is="Component"/>
-        </router-view>
-      </el-scrollbar>
-    </el-main>
-  </el-container>
+  <div class="flex flex-col h-screen">
+    <nav-bar></nav-bar>
+    <el-container>
+      <el-aside width="201px" class="bg-aside">
+        <side-bar></side-bar>
+      </el-aside>
+      <el-main>
+        <el-scrollbar>
+          <el-breadcrumb :separator-icon="ArrowRight">
+            <el-breadcrumb-item v-for="(item,index) in crumbList.matched" :to="index == crumbList.length - 1 ? '' : item.path">{{item.meta.title}}</el-breadcrumb-item>
+          </el-breadcrumb>
+          <router-view v-slot="{ Component, route }">
+            <keep-alive v-if="route.meta.keepAlive">
+              <Component :is="Component"/>
+            </keep-alive>
+            <Component v-else :is="Component"/>
+          </router-view>
+        </el-scrollbar>
+      </el-main>
+    </el-container>
+  </div>
 </template>
 
 <style scoped>

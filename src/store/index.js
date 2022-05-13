@@ -6,6 +6,7 @@ const store = createStore({
   plugins: [createPersistedState()],
   state: {
     title: 'SAAS管理后台',
+    version: '1.0',    
   },
   mutations: {
     
