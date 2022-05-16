@@ -2,6 +2,8 @@ import apis from '../api/apis'
 
 export default function() {
   const router = useRouter()
+  const route = useRoute()
+  const store = useStore()
   // 组合式函数约定始终返回ref，组件解构后可保持响应性
   const currPage = ref(1)
   const pageSize = ref(10)
@@ -63,6 +65,8 @@ export default function() {
     tableData,
     paramsObj,
     router,
+    route,
+    store,
     indexMethod,
     handleCurrPage,
     handlePageSize,

@@ -1,7 +1,7 @@
 <script setup>
-  import { onUnmounted } from 'vue';
-import apis from '../api/apis'
+  import apis from '../api/apis'
   import echarts from '../config/echarts'
+  
   const notBindUser = ref(0)
   const chartData = reactive({
     user: '',

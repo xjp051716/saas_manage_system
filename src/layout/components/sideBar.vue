@@ -9,6 +9,7 @@
     active-text-color="#ffd04b"
     background-color="#545c64"
     text-color="#fff"
+    unique-opened
     router
   >
     <template v-for="route in menu" :key="route.path">

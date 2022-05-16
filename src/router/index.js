@@ -36,6 +36,94 @@ const router = createRouter({
       ]
     },
     {
+      path: '/customer',
+      redirect: '/customer/customerList',
+      component: Layout,
+      name: 'customer',
+      meta: {
+        title: '客户关系管理',
+        icon: 'icon-kehuguanxiguanli'
+      },
+      children: [
+        {
+          path: '/customer/customerList',
+          component: ()=> import("@/views/customer/customerList.vue"),
+          name: 'customer',
+          meta: {
+            title: '客户列表',
+            keepAlive: true,
+            auth: true
+          }
+        },
+        {
+          path: '/customer/customerCreate',
+          component: ()=> import("@/views/customer/customerEdit.vue"),
+          name: 'customerCreate',
+          meta: {
+            title: '新增客户',
+            keepAlive: true,
+            auth: true,
+            hidden: true,
+          }
+        },
+        {
+          path: '/customer/customerUpdate',
+          component: ()=> import("@/views/customer/customerEdit.vue"),
+          name: 'customerUpdate',
+          meta: {
+            title: '修改客户',
+            keepAlive: true,
+            auth: true,
+            hidden: true,
+          }
+        },
+      ]
+    },
+    {
+      path: '/module',
+      redirect: '/module/moduleList',
+      component: Layout,
+      name: 'module',
+      meta: {
+        title: '模块管理',
+        icon: 'icon-mokuailiebiao'
+      },
+      children: [
+        {
+          path: '/module/moduleList',
+          component: ()=> import("@/views/module/moduleList.vue"),
+          name: 'module',
+          meta: {
+            title: '模块列表',
+            keepAlive: true,
+            auth: true
+          }
+        },
+        {
+          path: '/module/moduleCreate',
+          component: ()=> import("@/views/module/moduleEdit.vue"),
+          name: 'moduleCreate',
+          meta: {
+            title: '新增模块',
+            keepAlive: true,
+            auth: true,
+            hidden: true,
+          }
+        },
+        {
+          path: '/module/moduleUpdate',
+          component: ()=> import("@/views/module/moduleEdit.vue"),
+          name: 'moduleUpdate',
+          meta: {
+            title: '修改模块',
+            keepAlive: true,
+            auth: true,
+            hidden: true,
+          }
+        },
+      ]
+    },
+    {
       path: '/staff',
       redirect: '/staff/staffList',
       component: Layout,
@@ -72,6 +160,72 @@ const router = createRouter({
           name: 'staffUpdate',
           meta: {
             title: '修改员工',
+            keepAlive: true,
+            auth: true,
+            hidden: true,
+          }
+        },
+      ]
+    },
+    {
+      path: '/applet',
+      redirect: '/applet/appletManagement',
+      component: Layout,
+      name: 'applet',
+      meta: {
+        title: '小程序模板管理',
+        icon: 'icon-xiaochengxumoban'
+      },
+      children: [
+        {
+          path: '/applet/appletManagement',
+          component: ()=> import("@/views/applet/appletManagement.vue"),
+          name: 'appletManagement',
+          meta: {
+            title: '小程序模板管理',
+            keepAlive: true,
+            auth: true
+          }
+        },
+      ]
+    },
+    {
+      path: '/system',
+      redirect: '/system/noticeManagement',
+      component: Layout,
+      name: 'system',
+      meta: {
+        title: '系统管理',
+        icon: 'icon-xitongguanli'
+      },
+      children: [
+        {
+          path: '/system/noticeManagement',
+          component: ()=> import("@/views/system/noticeManagement.vue"),
+          name: 'noticeManagement',
+          meta: {
+            title: '公告管理',
+            keepAlive: true,
+            auth: true
+          }
+        },
+        {
+          path: '/system/noticeCreate',
+          component: ()=> import("@/views/system/noticeEdit.vue"),
+          name: 'noticeCreate',
+          meta: {
+            title: '新增公告',
+            keepAlive: true,
+            auth: true,
+            hidden: true,
+          }
+        },
+        {
+          path: '/system/noticeUpdate',
+          component: ()=> import("@/views/system/noticeEdit.vue"),
+          name: 'noticeUpdate',
+          meta: {
+            title: '修改公告',
             keepAlive: true,
             auth: true,
             hidden: true,

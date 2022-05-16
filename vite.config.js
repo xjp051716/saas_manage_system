@@ -51,6 +51,7 @@ export default defineConfig({
     include: ['axios'],
   },
   build: {
+    chunkSizeWarningLimit: 1500,
     rollupOptions: {
       output: {
         manualChunks(id) {
@@ -62,6 +63,9 @@ export default defineConfig({
             return "element-plus";
           }
         },
+        chunkFileNames: 'assets/js/[name]-[hash].js',
+        entryFileNames: 'assets/js/[name]-[hash].js',
+        assetFileNames: 'assets/[ext]/[name]-[hash].[ext]',
       },
     },
     target: 'modules',
