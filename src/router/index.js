@@ -61,7 +61,7 @@ const router = createRouter({
           name: 'customerCreate',
           meta: {
             title: '新增客户',
-            keepAlive: true,
+            keepAlive: false,
             auth: true,
             hidden: true,
           }
@@ -72,7 +72,7 @@ const router = createRouter({
           name: 'customerUpdate',
           meta: {
             title: '修改客户',
-            keepAlive: true,
+            keepAlive: false,
             auth: true,
             hidden: true,
           }
@@ -105,7 +105,7 @@ const router = createRouter({
           name: 'moduleCreate',
           meta: {
             title: '新增模块',
-            keepAlive: true,
+            keepAlive: false,
             auth: true,
             hidden: true,
           }
@@ -116,7 +116,7 @@ const router = createRouter({
           name: 'moduleUpdate',
           meta: {
             title: '修改模块',
-            keepAlive: true,
+            keepAlive: false,
             auth: true,
             hidden: true,
           }
@@ -149,7 +149,7 @@ const router = createRouter({
           name: 'staffCreate',
           meta: {
             title: '新增员工',
-            keepAlive: true,
+            keepAlive: false,
             auth: true,
             hidden: true,
           }
@@ -160,7 +160,7 @@ const router = createRouter({
           name: 'staffUpdate',
           meta: {
             title: '修改员工',
-            keepAlive: true,
+            keepAlive: false,
             auth: true,
             hidden: true,
           }
@@ -215,7 +215,7 @@ const router = createRouter({
           name: 'noticeCreate',
           meta: {
             title: '新增公告',
-            keepAlive: true,
+            keepAlive: false,
             auth: true,
             hidden: true,
           }
@@ -226,7 +226,7 @@ const router = createRouter({
           name: 'noticeUpdate',
           meta: {
             title: '修改公告',
-            keepAlive: true,
+            keepAlive: false,
             auth: true,
             hidden: true,
           }

@@ -4,6 +4,7 @@
   "version": "0.0.0",
   "scripts": {
     "dev": "vite",
+    "dev:force": "vite --force",
     "build": "vite build",
     "preview": "vite preview"
   },
@@ -14,8 +15,7 @@
     "js-base64": "^3.7.2",
     "vue": "^3.2.25",
     "vue-router": "^4.0.14",
-    "vuex": "^4.0.2",
-    "vuex-persistedstate": "^4.1.0"
+    "vuex": "^4.0.2"
   },
   "devDependencies": {
     "@iconify-json/ep": "^1.1.3",

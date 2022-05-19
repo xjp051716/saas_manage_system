@@ -1,0 +1,9 @@
+.el-card .el-card__header {
+  background-color: #eceff1;
+  padding-top: 0.625rem;
+  padding-bottom: 0.625rem;
+}
+
+.el-card .el-card__body {
+  padding-top: 0.5rem;
+}

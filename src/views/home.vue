@@ -57,7 +57,6 @@
     drawLine()
   }
   const drawLine = ()=> {
-    console.log('hahaha')
     let data = { user: chartData.user_id }
     if(chartData.type == 'month') data.show_key = ''
     apis.getIndex(data).then(res=> {
@@ -143,13 +142,13 @@
       mychart.setOption(option)
     })
   }
-  onMounted(()=> {
+  onActivated(()=> {
     initChart()
     window.addEventListener('resize', ()=> {
       mychart.resize()
     })
   })
-  onUnmounted(()=>{
+  onDeactivated(()=> {
     // 容器节点销毁时，调用dispose销毁实例释放内存
     mychart.dispose()
   })

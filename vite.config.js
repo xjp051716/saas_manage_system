@@ -75,7 +75,7 @@ export default defineConfig({
   server: {
     host: '0.0.0.0',
     port: 8080,
-    open: true, //服务器启动自动在浏览器打开
+    open: true, //服务器启动是否自动浏览器打开
     cors: true, //默认启用并允许任何源
     proxy: {
       '/v2/admin': {

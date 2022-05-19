@@ -29,7 +29,7 @@
       </el-aside>
       <el-main>
         <el-scrollbar>
-          <el-breadcrumb :separator-icon="ArrowRight">
+          <el-breadcrumb :separator-icon="ArrowRight" class="mb-4">
             <el-breadcrumb-item v-for="(item,index) in crumbList.matched" :to="index == crumbList.length - 1 ? '' : item.path">{{item.meta.title}}</el-breadcrumb-item>
           </el-breadcrumb>
           <router-view v-slot="{ Component, route }">

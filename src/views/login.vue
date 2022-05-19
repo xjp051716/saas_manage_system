@@ -54,7 +54,7 @@
         <el-input placeholder="请输入密码" v-model.trim="form.password"></el-input>
       </el-form-item>
       <el-form-item>
-        <el-button class="w-full" type="primary" @click="login(loginForm)">登陆</el-button>
+        <el-button class="w-full" type="primary" @click="login(loginForm)">登录</el-button>
       </el-form-item>
     </el-form>
   </div>
