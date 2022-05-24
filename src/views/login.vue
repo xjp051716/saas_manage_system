@@ -1,5 +1,5 @@
 <script setup>
-  import { Base64 } from 'js-base64'
+  // import { Base64 } from 'js-base64'
   import apis from "../api/apis"
   const store = useStore()
   const router = useRouter()
@@ -22,7 +22,8 @@
       if(valid) {
         apis.login(form).then(res=> {
           router.push('/')
-          localStorage.setItem('token', `basic ${Base64.encode(res.data + ':')}`)
+          localStorage.setItem('token', res.data)
+          // localStorage.setItem('token', `basic ${Base64.encode(res.data + ':')}`)
         })
       }
     })

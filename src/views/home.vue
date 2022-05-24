@@ -59,88 +59,88 @@
   const drawLine = ()=> {
     let data = { user: chartData.user_id }
     if(chartData.type == 'month') data.show_key = ''
-    apis.getIndex(data).then(res=> {
-      let option = {
-        xAxis: {
-          type: 'category',
-          data: res.data.month_order_list.map(item=> {
-            return item.time
-          }),
-          axisPointer: {
-            type: 'shadow'
-          }
-        },
-        tooltip: {
-          trigger: 'axis',
-          axisPointer: {
-            type: 'cross'
-          }
-        },
-        legend: {
-          data: ['销售额','销售量'],
-          bottom: 0
-        },
-        yAxis: [
-          {
-            type: 'value',
-            axisLabel: {
-              formatter: '{value}'
-            },
-            axisLine: {
-              show: true,
-              lineStyle: {
-                color: '#14c8d4'
-              }
-            },
-            min: 0
-          },
-          {
-            type: 'value',
-            axisLabel: {
-              formatter: '{value}'
-            },
-            axisLine: {
-              show: true,
-              lineStyle: {
-                color: '#EE6666'
-              }
-            },
-            min: 0
-          }
-        ],
-        series: [
-          {
-            name: '销售额',
-            type: 'bar',
-            data: res.data.month_order_list.map(item=> {
-              return item.value
-            }),
-            barWidth: 10,
-            itemStyle: {
-              borderRadius: 4,
-              color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-                { offset: 0, color: "#14c8d4" },
-                { offset: 1, color: "#43eec6" }
-              ])
-            }
-          },
-          {
-            name: '销售量',
-            type: 'line',
-            data: res.data.month_order_list.map(item=> {
-              return item.qty
-            }),
-            yAxisIndex: 1,
-            smooth: true,
-            symbolSize: 6, //图标大小
-            itemStyle: {
-              color: "#EE6666"
-            }
-          },
-        ]
-      }
-      mychart.setOption(option)
-    })
+    // apis.getIndex(data).then(res=> {
+    //   let option = {
+    //     xAxis: {
+    //       type: 'category',
+    //       data: res.data.month_order_list.map(item=> {
+    //         return item.time
+    //       }),
+    //       axisPointer: {
+    //         type: 'shadow'
+    //       }
+    //     },
+    //     tooltip: {
+    //       trigger: 'axis',
+    //       axisPointer: {
+    //         type: 'cross'
+    //       }
+    //     },
+    //     legend: {
+    //       data: ['销售额','销售量'],
+    //       bottom: 0
+    //     },
+    //     yAxis: [
+    //       {
+    //         type: 'value',
+    //         axisLabel: {
+    //           formatter: '{value}'
+    //         },
+    //         axisLine: {
+    //           show: true,
+    //           lineStyle: {
+    //             color: '#14c8d4'
+    //           }
+    //         },
+    //         min: 0
+    //       },
+    //       {
+    //         type: 'value',
+    //         axisLabel: {
+    //           formatter: '{value}'
+    //         },
+    //         axisLine: {
+    //           show: true,
+    //           lineStyle: {
+    //             color: '#EE6666'
+    //           }
+    //         },
+    //         min: 0
+    //       }
+    //     ],
+    //     series: [
+    //       {
+    //         name: '销售额',
+    //         type: 'bar',
+    //         data: res.data.month_order_list.map(item=> {
+    //           return item.value
+    //         }),
+    //         barWidth: 10,
+    //         itemStyle: {
+    //           borderRadius: 4,
+    //           color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+    //             { offset: 0, color: "#14c8d4" },
+    //             { offset: 1, color: "#43eec6" }
+    //           ])
+    //         }
+    //       },
+    //       {
+    //         name: '销售量',
+    //         type: 'line',
+    //         data: res.data.month_order_list.map(item=> {
+    //           return item.qty
+    //         }),
+    //         yAxisIndex: 1,
+    //         smooth: true,
+    //         symbolSize: 6, //图标大小
+    //         itemStyle: {
+    //           color: "#EE6666"
+    //         }
+    //       },
+    //     ]
+    //   }
+    //   mychart.setOption(option)
+    // })
   }
   onActivated(()=> {
     initChart()
