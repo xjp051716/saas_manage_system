@@ -1,6 +1,6 @@
 <script setup>
   // import { Base64 } from 'js-base64'
-  import apis from "../api/apis"
+  const { proxy } = getCurrentInstance()
   const store = useStore()
   const router = useRouter()
   const loginForm = ref(null)
@@ -20,7 +20,7 @@
     if(!formEl) return
     await formEl.validate(valid=> {
       if(valid) {
-        apis.login(form).then(res=> {
+        proxy.$apis.login(form).then(res=> {
           router.push('/')
           localStorage.setItem('token', res.data)
           // localStorage.setItem('token', `basic ${Base64.encode(res.data + ':')}`)

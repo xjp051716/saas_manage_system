@@ -1,7 +1,6 @@
 <script setup>
-  import apis from '../api/apis'
-  import echarts from '../config/echarts'
-  
+  const echarts = inject('echarts')
+  const { proxy } = getCurrentInstance()
   const notBindUser = ref(0)
   const chartData = reactive({
     user: '',
@@ -59,7 +58,7 @@
   const drawLine = ()=> {
     let data = { user: chartData.user_id }
     if(chartData.type == 'month') data.show_key = ''
-    // apis.getIndex(data).then(res=> {
+    // proxy.$apis.getIndex(data).then(res=> {
     //   let option = {
     //     xAxis: {
     //       type: 'category',

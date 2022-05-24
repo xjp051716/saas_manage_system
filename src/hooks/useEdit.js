@@ -1,5 +1,3 @@
-import apis from '../api/apis'
-
 export default function() {
   const { proxy } = getCurrentInstance()
   const route = useRoute()
@@ -12,7 +10,7 @@ export default function() {
     if(!formEl) return
     formEl.validate(valid=> {
       if(valid) {
-        // api
+        // proxy.$apis.xxx
       }
     })
   }

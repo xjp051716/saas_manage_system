@@ -1,6 +1,5 @@
-import apis from '../api/apis'
-
 export default function() {
+  const { proxy } = getCurrentInstance()
   const router = useRouter()
   const route = useRoute()
   // 组合式函数约定始终返回ref，组件解构后可保持响应性
@@ -48,7 +47,7 @@ export default function() {
         query: proxyData
       })
     }
-    return apis.getSimpleSelect(url, proxyData, proxyType).then(res=> {
+    return proxy.$apis.getSimpleSelect(url, proxyData, proxyType).then(res=> {
       let { total_count } = res.pagination
       tableData.value = res.data
       currPage.value = +proxyData.page_index
