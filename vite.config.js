@@ -53,11 +53,7 @@ export default defineConfig({
   build: {
     chunkSizeWarningLimit: 1500,
     rollupOptions: {
-      external: ['echarts'],
       output: {
-        globals: {
-          echarts: 'echarts'
-        },
         manualChunks(id) {
           // 初始化tailwindcss文件，放入至main.js中路径一致
           if (id.includes("assets/css/index.css")) {
