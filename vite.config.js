@@ -48,21 +48,14 @@ export default defineConfig({
   },
   // 强制预构建插件包
   optimizeDeps: {
-    include: ['axios'],
+    include: ['axios','echarts'],
   },
   build: {
-    lib: {
-      entry: resolve(__dirname, 'src/main.js'),
-      name: 'sass_manage_system',
-      fileName: (format) => `sass_manage_system.${format}.js`
-    },
     chunkSizeWarningLimit: 1500,
     rollupOptions: {
-      external: ['vue','element-plus','echarts'],
+      external: ['echarts'],
       output: {
         globals: {
-          vue: 'Vue',
-          'element-plus': 'elementPlus',
           echarts: 'echarts'
         },
         manualChunks(id) {
