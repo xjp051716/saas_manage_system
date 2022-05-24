@@ -1,5 +1,6 @@
 <script setup>
-  const echarts = inject('echarts')
+  import echarts from './config/echarts'
+
   const { proxy } = getCurrentInstance()
   const notBindUser = ref(0)
   const chartData = reactive({
