@@ -51,6 +51,11 @@ export default defineConfig({
     include: ['axios'],
   },
   build: {
+    lib: {
+      entry: resolve(__dirname, 'lib/main.js'),
+      name: 'sass_manage_system',
+      fileName: (format) => `sass_manage_system.${format}.js`
+    },
     chunkSizeWarningLimit: 1500,
     rollupOptions: {
       external: ['vue','element-plus','echarts'],
