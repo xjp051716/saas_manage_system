@@ -1,5 +1,5 @@
 <script setup>
-  import echarts from './config/echarts'
+  import echarts from '../config/echarts'
 
   const { proxy } = getCurrentInstance()
   const notBindUser = ref(0)
