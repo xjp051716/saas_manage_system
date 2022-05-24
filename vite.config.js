@@ -78,8 +78,8 @@ export default defineConfig({
     open: true, //服务器启动是否自动浏览器打开
     cors: true, //默认启用并允许任何源
     proxy: {
-      '/v2/admin': {
-        target: "http://admincs.magexiot.com/",
+      '/api': {
+        target: "http://unioncs.magexiot.com/",
         changeOrigin: true,
         // rewrite: (path) => path.replace(/^\/api/, '')
       }

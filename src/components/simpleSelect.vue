@@ -143,7 +143,7 @@
         :inline="true"
         v-if="search"
       >
-        <el-form-item class="flex-1" :label="search.label">
+        <el-form-item class="w-1/2" :label="search.label">
           <el-input v-model="searchValue"></el-input>
         </el-form-item>
         <div class="ml-8">

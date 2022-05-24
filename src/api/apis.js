@@ -1,9 +1,9 @@
 import request from "./axios";
 
-const apiHead = '/v2/admin';
+const apiHead = '/api';
 const apis = {
   login(data) {
-    return request(apiHead + '/user_login', data)
+    return request(apiHead + '/login', data)
   },
   getSimpleSelect(url, data, type) {
     return request(`${apiHead}${url}`, data , type)

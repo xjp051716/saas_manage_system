@@ -173,7 +173,7 @@ const router = createRouter({
       component: Layout,
       name: 'applet',
       meta: {
-        title: '小程序模板管理',
+        title: '模板小程序管理',
         icon: 'icon-xiaochengxumoban'
       },
       children: [
@@ -182,9 +182,41 @@ const router = createRouter({
           component: ()=> import("@/views/applet/appletManagement.vue"),
           name: 'appletManagement',
           meta: {
-            title: '小程序模板管理',
+            title: '模板小程序管理',
             keepAlive: true,
             auth: true
+          }
+        },
+        {
+          path: '/applet/clubCardManagement',
+          component: ()=> import("@/views/applet/clubCardManagement.vue"),
+          name: 'clubCardManagement',
+          meta: {
+            title: '会员卡模板管理',
+            keepAlive: true,
+            auth: true
+          }
+        },
+        {
+          path: '/applet/clubCardCreate',
+          component: ()=> import("@/views/applet/clubCardEdit.vue"),
+          name: 'clubCardCreate',
+          meta: {
+            title: '新增会员卡模板',
+            keepAlive: false,
+            auth: true,
+            hidden: true
+          }
+        },
+        {
+          path: '/applet/clubCardUpdate',
+          component: ()=> import("@/views/applet/clubCardEdit.vue"),
+          name: 'clubCardUpdate',
+          meta: {
+            title: '修改会员卡模板',
+            keepAlive: false,
+            auth: true,
+            hidden: true
           }
         },
       ]
@@ -237,14 +269,15 @@ const router = createRouter({
 })
 
 router.beforeEach((to,from,next)=> {
-  let token = localStorage.getItem('token')
-  if(to.name == 'login') {
-    if(token) next({ name: 'home' })
-    else next()
-  }else {
-    if(token) next()
-    else next({ name: 'login' })
-  }
+  // let token = localStorage.getItem('token')
+  // if(to.name == 'login') {
+  //   if(token) next({ name: 'home' })
+  //   else next()
+  // }else {
+  //   if(token) next()
+  //   else next({ name: 'login' })
+  // }
+  next()
 })
 
 export default router;

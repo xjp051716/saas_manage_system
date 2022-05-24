@@ -10,6 +10,9 @@ module.exports = {
       'aside': '#545c64', //添加自定义颜色
       'own-green': '#1ab394',
     }),
+    textColor: {
+      'own-green': '#1ab394'
+    },
     extend: {
       width: {
         '120': '30rem',
