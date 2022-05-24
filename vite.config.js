@@ -52,7 +52,7 @@ export default defineConfig({
   },
   build: {
     lib: {
-      entry: resolve(__dirname, 'lib/main.js'),
+      entry: resolve(__dirname, 'src/main.js'),
       name: 'sass_manage_system',
       fileName: (format) => `sass_manage_system.${format}.js`
     },
