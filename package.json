@@ -1,12 +1,12 @@
 {
   "name": "sass_manage_system",
   "files": ["dist"],
-  "main": "./dist/my-lib.umd.js",
-  "module": "./dist/my-lib.es.js",
+  "main": "./dist/sass_manage_system.umd.js",
+  "module": "./dist/sass_manage_system.es.js",
   "exports": {
     ".": {
-      "import": "./dist/my-lib.es.js",
-      "require": "./dist/my-lib.umd.js"
+      "import": "./dist/sass_manage_system.es.js",
+      "require": "./dist/sass_manage_system.umd.js"
     }
   },
   "private": true,
