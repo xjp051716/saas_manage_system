@@ -71,10 +71,9 @@ export default defineConfig({
           // 初始化tailwindcss文件，放入至main.js中路径一致
           if (id.includes("assets/css/index.css")) {
             return "tailwindcss";
-          }else if (id.includes("element-plus/theme-chalk/")) { // 当然也可以优化下这个判断，不过目前这样写足矣了。
+          }
+          if (id.includes("element-plus/theme-chalk/")) { // 当然也可以优化下这个判断，不过目前这样写足矣了。
             return "element-plus";
-          }else if (id.includes('node_modules')) {
-            return id.toString().split('node_modules/')[1].split('/')[0].toString();
           }
         },
         chunkFileNames: 'assets/js/[name]-[hash].js',
