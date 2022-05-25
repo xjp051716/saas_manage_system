@@ -51,7 +51,20 @@ export default defineConfig({
     include: ['axios','echarts'],
   },
   build: {
+    outDir: 'dist', //输出路径
+    assetsDir: 'assets', // 静态资源存放路径
     chunkSizeWarningLimit: 1500,
+    terserOptions: {
+      compress: {
+        drop_console: true,  //打包时删除console
+        drop_debugger: true, //打包时删除 debugger
+        pure_funcs: ['console.log'],
+      },
+      output: {
+        // 去掉注释内容
+        comments: true,
+      },
+    },
     rollupOptions: {
       output: {
         manualChunks(id) {
@@ -62,15 +75,15 @@ export default defineConfig({
           if (id.includes("element-plus/theme-chalk/")) { // 当然也可以优化下这个判断，不过目前这样写足矣了。
             return "element-plus";
           }
+          if (id.includes("echarts")) {
+            return "echarts"
+          }
         },
         chunkFileNames: 'assets/js/[name]-[hash].js',
         entryFileNames: 'assets/js/[name]-[hash].js',
         assetFileNames: 'assets/[ext]/[name]-[hash].[ext]',
       },
     },
-    target: 'modules',
-    outDir: 'dist', //输出路径
-    assetsDir: 'assets', // 静态资源存放路径
   },
   server: {
     host: '0.0.0.0',
