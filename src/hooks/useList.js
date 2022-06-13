@@ -31,7 +31,7 @@ export default function() {
       pageSize.value = index;
     })
   }
-  const getTableData = (url=paramsObj.value.url, proxyType=paramsObj.value.proxyType, proxyData=paramsObj.value.proxyData, isRouter=paramsObj.value.isRouter)=> {
+  const getTableData = (url=paramsObj.value.url, proxyData=paramsObj.value.proxyData, proxyType=paramsObj.value.proxyType, isRouter=paramsObj.value.isRouter)=> {
     if(!proxyData.page_index || !proxyData.page_size) {
       proxyData.page_index = currPage.value;
       proxyData.page_size = pageSize.value;
@@ -54,6 +54,19 @@ export default function() {
       total.value = total_count
     })
   }
+  const viewDetail = (name,id)=> {
+    router.push({
+      name,
+      query: {
+        id
+      }
+    })
+  }
+  const add = (name)=> {
+    router.push({
+      name
+    })
+  }
 
   return {
     currPage,
@@ -64,10 +77,13 @@ export default function() {
     tableData,
     router,
     route,
-   indexMethod,
+    proxy,
+    indexMethod,
     handleCurrPage,
     handlePageSize,
     getTableData,
+    viewDetail,
+    add
   }
 
 }

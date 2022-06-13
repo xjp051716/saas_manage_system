@@ -65,10 +65,10 @@
       stripe
     >
       <el-table-column label="#" type="index" :index="indexMethod"></el-table-column>
-      <el-table-column label="公告名称" props="name"></el-table-column>
-      <el-table-column label="创建时间" props="name"></el-table-column>
-      <el-table-column label="截至时间" props="name"></el-table-column>
-      <el-table-column label="状态" props="name"></el-table-column>
+      <el-table-column label="公告名称" prop="name"></el-table-column>
+      <el-table-column label="创建时间" prop="name"></el-table-column>
+      <el-table-column label="截至时间" prop="name"></el-table-column>
+      <el-table-column label="状态" prop="name"></el-table-column>
       <el-table-column label="操作">
         <template #default="scope">
           <el-button type="primary" @click="release(scope.row.id)">发布</el-button>

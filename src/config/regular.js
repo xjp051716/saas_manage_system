@@ -31,4 +31,8 @@ export default {
   isDecimal(value) {
     return /^\d+\.?\d{0,2}$/.test(value);
   },
+  // 数字或横线 11-15个字符
+  customerPhone(value) {
+    return /^[\d\-]{11,15}$/.test(value);
+  }
 }

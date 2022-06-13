@@ -15,10 +15,20 @@ const loadings = {
   fullscreen: false,
   text: '加载中，请耐心等待',
   // spinner: '', //自定义加载图标
-  // background: '', //遮罩背景色
-  // custom-class: '', //Loading的自定义类名
+  // background: '',
+  // custom-class: '',
 }
 let loadingInstance;
+let showLoadingCount = 0;
+const startLoading = ()=> {
+  if(showLoadingCount == 0) loadingInstance = ElLoading.service(loadings)
+  showLoadingCount++
+}
+const endLoading = ()=> {
+  if(showLoadingCount <= 0) return
+  showLoadingCount--
+  if(showLoadingCount == 0) loadingInstance.close()
+}
 
 //请求拦截
 axiosInstance.interceptors.request.use(
@@ -31,7 +41,7 @@ axiosInstance.interceptors.request.use(
         }
       }
     }
-    if(config.method == 'get') loadingInstance = ElLoading.service(loadings)
+    if(config.method == 'get') startLoading()
     return config;
   },
   error => {
@@ -46,7 +56,7 @@ axiosInstance.interceptors.request.use(
 axiosInstance.interceptors.response.use(
   response => {
     nextTick(()=> {
-      if(loadingInstance) loadingInstance.close()
+      if(loadingInstance) endLoading()
     })
     return Promise.resolve(response);
   },
@@ -55,8 +65,8 @@ axiosInstance.interceptors.response.use(
       if(loadingInstance) loadingInstance.close()
     })
     let { response } = error;
-    let msg = JSON.parse(error.request.responseText).detail
-    // console.log(response.status)
+    let msg = JSON.parse(error.request.responseText).msg
+    // console.log(response.status, msg)
     if(response.status == 600) {
       localStorage.setItem("token", '');
       ElMessage({
@@ -74,7 +84,7 @@ axiosInstance.interceptors.response.use(
   }
 )
 
-export default function request(url, data={}, method='post', download) {
+export default function request(url, method='post', data={}, download) {
   return new Promise((resolve, reject)=> {
     const options = {
       url,

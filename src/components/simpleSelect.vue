@@ -10,7 +10,7 @@
       default: 1
     },
     placeholder: String,
-    modelValue: String,
+    modelValue: [ String, Array ],
     text: {
       type: String,
       default: "新增",
@@ -69,7 +69,7 @@
   const multipleTable = ref(null)
   const focusHandle = ()=> {
     dialogVisible.value = true;
-    getTableData(props.action, 'get', props.query, true)
+    getTableData(props.action, props.query, 'get', true)
   }
   const confirm = ()=> {
     dialogVisible.value = false;
@@ -81,14 +81,14 @@
   const onSearch = ()=> {
     props.query[props.search.key] = searchValue.value
     props.query.page_index = 1
-    getTableData(props.action, 'get', props.query, true)
+    getTableData(props.action, props.query, 'get', true)
   }
   const reset = ()=> {
     searchValue.value = ''
     props.query[props.search.key] = ''
     props.query.page_index = 1
     dialogClose()
-    getTableData(props.action, 'get', props.query, true)
+    getTableData(props.action, props.query, 'get', true)
   }
   const handleCurrentChange = (val)=> {
     if(props.max == 1) { //单选
@@ -112,7 +112,7 @@
 </script>
 
 <template>
-  <div @click="focusHandle">
+  <div>
     <el-input
       v-model="modelValue"
       :size="size"
@@ -120,17 +120,20 @@
       readonly
       :disabled="disabled"
       v-if="touch=='input'"
+      @click="focusHandle"
     >
       <template #suffix>
         <el-icon><i-ep-search /></el-icon>
       </template>
     </el-input>
-    <el-button
-      :disabled="disabled"
-      type="primary"
-      :size="size"
-      v-else-if="touch=='button'"
-    >{{ text }}</el-button>
+    <div class="w-full mb-3" v-else-if="touch=='button'">
+      <el-button
+        :disabled="disabled"
+        type="primary"
+        :size="size"
+        @click="focusHandle"
+      >{{ text }}</el-button>
+    </div>
     <slot />
     <el-dialog
       v-model="dialogVisible"
@@ -141,7 +144,7 @@
         class="flex justify-between"
         :size="size"
         :inline="true"
-        v-if="search"
+        v-if="search.label"
       >
         <el-form-item class="w-1/2" :label="search.label">
           <el-input v-model="searchValue"></el-input>
@@ -179,9 +182,8 @@
       <el-pagination
         class="float-right my-4"
         :pager-count="5"
-        :layout="'prev, pager, next'"
+        :layout="'total, prev, pager, next'"
         :default-current-page="1"
-        :hide-on-single-page="total <= 10"
         :total="total"
         :page-size="pageSize"
         :current-page="currPage"

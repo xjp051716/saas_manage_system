@@ -9,33 +9,43 @@
     indexMethod,
     handleCurrPage,
     getTableData,
+    viewDetail,
+    add,
     router,
-    route
+    route,
+    proxy
   } = useList()
   const formData = reactive({
     name: ''
   })
   const search = ()=> {
-    // getTableData()
+    getTableData('/modularity', formData, 'get')
   }
   const reset = ()=> {
     formData.name = ''
-    // getTableData()
+    search()
   }
-  const add = ()=> {
-    router.push({
-      name: 'moduleCreate'
+  const handelStatus = (row)=> {
+    proxy.$apis.modularityUpdate(row).then(res=> {
+      ElMessage({
+        message: row.enable_status == 'NO_ENABLE' ? '关闭成功' : '启用成功',
+        type: 'success',
+      })
+      search()
     })
   }
-  const handelStatus = (val)=> {
-    console.log(val)
+  const deleteRow = (id)=> {
+    proxy.$apis.modularityDel(id).then(res=> {
+      ElMessage({
+        type: 'success',
+        message: '删除成功'
+      })
+      search()
+    })
   }
-  const viewDetail = (val)=> {
-    console.log(val)
-  }
-  const deleteRow = (val)=> {
-    console.log(val)
-  }
+  onActivated(()=> {
+    search()
+  })
 </script>
 
 <template>
@@ -58,23 +68,23 @@
       </div>
     </div>
     <div class="py-2 border-b">
-      <el-button type="primary" @click="add">新增</el-button>
+      <el-button type="primary" @click="add('moduleCreate')">新增</el-button>
     </div>
     <el-table
       :data="tableData"
       stripe
     >
       <el-table-column align="center" label="#" type="index" :index="indexMethod"></el-table-column>
-      <el-table-column align="center" label="模块名称" props="name"></el-table-column>
-      <el-table-column align="center" label="包含页面" props="name"></el-table-column>
-      <el-table-column align="center" label="启用状态" props="name">
+      <el-table-column align="center" label="模块名称" prop="name"></el-table-column>
+      <el-table-column align="center" label="包含页面" prop="pages"></el-table-column>
+      <el-table-column align="center" label="启用状态" prop="enable_status">
         <template #default="scope">
-          <el-switch v-model="scope.row.name" @change="handelStatus"></el-switch>
+          <el-switch v-model="scope.row.enable_status" active-value="TAKE_ENABLE" inactive-value="NO_ENABLE" @change="handelStatus(scope.row)"></el-switch>
         </template>
       </el-table-column>
       <el-table-column align="center" label="操作">
         <template #default="scope">
-          <el-button type="primary" @click="viewDetail(scope.row.id)">详情</el-button>
+          <el-button type="primary" @click="viewDetail('moduleUpdate', scope.row.id)">详情</el-button>
           <el-button type="danger" @click="deleteRow(scope.row.id)">删除</el-button>
         </template>
       </el-table-column>

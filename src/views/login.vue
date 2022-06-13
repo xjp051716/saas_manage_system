@@ -1,5 +1,4 @@
 <script setup>
-  // import { Base64 } from 'js-base64'
   const { proxy } = getCurrentInstance()
   const store = useStore()
   const router = useRouter()
@@ -21,9 +20,15 @@
     await formEl.validate(valid=> {
       if(valid) {
         proxy.$apis.login(form).then(res=> {
-          router.push('/')
-          localStorage.setItem('token', res.data)
-          // localStorage.setItem('token', `basic ${Base64.encode(res.data + ':')}`)
+          if(res.code == 200) {
+            router.push('/')
+            localStorage.setItem('token', `basic ${res.data}`)
+          }else {
+            ElMessage({
+              message: res.msg,
+              type: 'error',
+            })
+          }
         })
       }
     })
@@ -52,7 +57,7 @@
         <el-input placeholder="请输入账号" v-model.trim="form.username"></el-input>
       </el-form-item>
       <el-form-item prop="password">
-        <el-input placeholder="请输入密码" v-model.trim="form.password"></el-input>
+        <el-input type="password" placeholder="请输入密码" v-model.trim="form.password"></el-input>
       </el-form-item>
       <el-form-item>
         <el-button class="w-full" type="primary" @click="login(loginForm)">登录</el-button>

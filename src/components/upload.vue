@@ -43,13 +43,13 @@
     if(file.type !== 'image/jpeg' || file.type !== 'image/png') {
       Elmessage({
         type: 'error',
-        message: '上传图像格式只能是 jpg或png 格式！'
+        message: '上传图像格式只能是 jpg或png 格式！',
       })
       return false
     }else if(file.size / 1024 / 1024 > sizeLimit) {
       Elmessage({
         type: 'error',
-        message: `上传图像大小不能超过 ${sizeLimit}MB ！`
+        message: `上传图像大小不能超过 ${sizeLimit}MB ！`,
       })
       return false
     }
@@ -58,7 +58,7 @@
   const handleExceed = ()=> {
     Elmessage({
       type: 'warnning',
-      message: `最多能上传${limit}个文件`
+      message: `最多能上传${limit}个文件`,
     })
   }
 </script>

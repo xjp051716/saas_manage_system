@@ -45,11 +45,11 @@
       stripe
     >
       <el-table-column label="#" type="index" :index="indexMethod"></el-table-column>
-      <el-table-column label="公司名称" props="name"></el-table-column>
-      <el-table-column label="支付宝APPID" props="name"></el-table-column>
-      <el-table-column label="是否构建" props="name"></el-table-column>
-      <el-table-column label="审核状态" props="name"></el-table-column>
-      <el-table-column label="小程序版本号" props="name"></el-table-column>
+      <el-table-column label="公司名称" prop="name"></el-table-column>
+      <el-table-column label="支付宝APPID" prop="name"></el-table-column>
+      <el-table-column label="是否构建" prop="name"></el-table-column>
+      <el-table-column label="审核状态" prop="name"></el-table-column>
+      <el-table-column label="小程序版本号" prop="name"></el-table-column>
       <el-table-column label="操作">
         <template #default="scope">
           <el-button type="primary" @click="buildApplet(scope.row.id)">构建小程序</el-button>

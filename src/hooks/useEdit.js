@@ -14,13 +14,17 @@ export default function() {
       }
     })
   }
-  const submit = (formEl, formData)=> {
+  const submit = (formEl, formData, api)=> {
     if(!formEl) return
     formEl.validate(valid=> {
       if(valid) {
-        // api
-        console.log(formData)
-        router.go(-1)
+        proxy.$apis[api](formData).then(res=> {
+          ElMessage({
+            type: 'success',
+            message: '保存成功',
+          })
+          router.go(-1)
+        })
       }
     })
   }

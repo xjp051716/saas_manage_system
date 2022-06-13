@@ -69,10 +69,10 @@
       stripe
     >
       <el-table-column label="#" type="index" :index="indexMethod"></el-table-column>
-      <el-table-column label="真实姓名" props="name"></el-table-column>
-      <el-table-column label="性别" props="name"></el-table-column>
-      <el-table-column label="手机号码" props="name"></el-table-column>
-      <el-table-column label="是否禁用" props="name"></el-table-column>
+      <el-table-column label="真实姓名" prop="name"></el-table-column>
+      <el-table-column label="性别" prop="name"></el-table-column>
+      <el-table-column label="手机号码" prop="name"></el-table-column>
+      <el-table-column label="是否禁用" prop="name"></el-table-column>
       <el-table-column label="操作">
         <template #default="scope">
           <el-button type="primary" @click="viewDetail(scope.row.id)">详情</el-button>
