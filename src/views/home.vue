@@ -4,15 +4,15 @@
   const { proxy } = getCurrentInstance()
   const chartData = reactive({
     user: '',
-    user_id: '',
+    company_merchant_user_id : '',
     choice: 'days',
   })
   const post = {
     touch: 'input',
-    action: '/get_admin_biz_user',
+    action: '/merchant',
     placeholder: '请选择客户',
     search: {key: 'name', label: '客户名称'},
-    tableParams: [{key: 'company', label: '客户名称'}],
+    tableParams: [{key: 'name', label: '客户名称'},{key: 'phone', label: '手机号'}],
   }
   const infoList = reactive([
     {
@@ -45,11 +45,11 @@
   const setUser = (val)=> {
     console.log(val)
     if(val) {
-      chartData.user = val.company;
-      chartData.user_id = val.id;
+      chartData.user = val.name;
+      chartData.company_merchant_user_id  = val.id;
     }else{
       chartData.user = '';
-      chartData.user_id = '';
+      chartData.company_merchant_user_id  = '';
     }
     drawLine()
   }
@@ -64,7 +64,7 @@
   }
   const drawLine = ()=> {
     let data = {
-      company_merchant_user_id: chartData.user_id,
+      company_merchant_user_id: chartData.company_merchant_user_id ,
       choice: chartData.choice
     }
     let month = new Date().getMonth() + 1
@@ -182,7 +182,7 @@
   <div class="text-left font-bold my-4">代办事项</div>
   <div class="text-left text-sm">
     <span class="mr-4">未绑定小程序客户数</span>
-    <el-link type="primary" class="text-sm" :underline="false">
+    <el-link href="/customer/customerList" type="primary" class="text-sm" :underline="false">
       {{basicInfo.empower_count}}<el-icon class="el-icon--right"><i-ep-view /></el-icon>
     </el-link>  
   </div>
