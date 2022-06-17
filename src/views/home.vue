@@ -153,10 +153,8 @@
       mychart.setOption(option)
     })
   }
-  onMounted(()=> {
-    mychart = echarts.init(document.getElementById('saleChart'))
-  })
   onActivated(()=> {
+    mychart = echarts.init(document.getElementById('saleChart'))
     getIndex()
     drawLine()
     window.addEventListener('resize', ()=> {
