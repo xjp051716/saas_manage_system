@@ -50,7 +50,7 @@
       search()
     })
   }
-  const audit = (val)=> {
+  const audit = (row)=> {
     proxy.$apis.merchantExamine({
       enable_status: row.enable_status,
       examine_status: 'TAKE_EXAMINES',
@@ -60,6 +60,7 @@
         message: '审核成功',
         type: 'success',
       })
+      search()
     })
   }
   onActivated(()=> {
@@ -119,7 +120,7 @@
       </el-table-column>
       <el-table-column align="center" label="操作" width="230">
         <template #default="scope">
-          <el-button type="primary" @click="audit(scope.row.id)" v-show="scope.row.examine_status == 'NO_EXAMINES'">审核</el-button>
+          <el-button type="primary" @click="audit(scope.row)" v-show="scope.row.examine_status == 'NO_EXAMINES'">审核</el-button>
           <el-button type="primary" @click="viewDetail('customerUpdate', scope.row.id)">详情</el-button>
           <el-button type="danger" @click="deleteRow(scope.row.id)">删除</el-button>
         </template>

@@ -54,17 +54,6 @@ export default defineConfig({
     outDir: 'dist', //输出路径
     assetsDir: 'assets', // 静态资源存放路径
     chunkSizeWarningLimit: 1500,
-    terserOptions: {
-      compress: {
-        drop_console: true,  //打包时删除console
-        drop_debugger: true, //打包时删除 debugger
-        pure_funcs: ['console.log'],
-      },
-      output: {
-        // 去掉注释内容
-        comments: true,
-      },
-    },
     rollupOptions: {
       output: {
         manualChunks(id) {

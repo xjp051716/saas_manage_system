@@ -10,7 +10,20 @@ export default function() {
     if(!formEl) return
     formEl.validate(valid=> {
       if(valid) {
-        // proxy.$apis.xxx
+        proxy.$apis[api](formData).then(res=> {
+          if(res.code==200) {
+            ElMessage({
+              type: 'success',
+              message: '保存成功',
+            })
+          }else {
+            ElMessage({
+              type: 'error',
+              message: '保存失败',
+            })
+          }
+          formEl.resetFields()
+        })
       }
     })
   }
@@ -19,11 +32,18 @@ export default function() {
     formEl.validate(valid=> {
       if(valid) {
         proxy.$apis[api](formData).then(res=> {
-          ElMessage({
-            type: 'success',
-            message: '保存成功',
-          })
-          router.go(-1)
+          if(res.code==200) {
+            ElMessage({
+              type: 'success',
+              message: '保存成功',
+            })
+            router.go(-1)
+          }else {
+            ElMessage({
+              type: 'error',
+              message: '保存失败',
+            })
+          }
         })
       }
     })

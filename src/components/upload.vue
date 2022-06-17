@@ -1,4 +1,5 @@
 <script setup>
+  import OSSConfig from '../config/oss';
   const props = defineProps({
     // 多选
     multiple: {
@@ -16,18 +17,30 @@
     },
     fileList: {
       type: Array,
-      default: []
+      default: () => {
+        return []
+      }
     },
     sizeLimit: {
       type: Number,
       default: 2
     }
   })
-  const emit = defineEmits([ 'update:fileList' ])
+  const emit = defineEmits([ 'update:fileList', 'setImage' ])
+  const uploadUrl = ref('')
+  const client = OSSConfig()
   const dialogVisible = ref(false)
   const dialogImageUrl = ref('')
   const httpRequest = (uploadFile)=> {
-    console.log(uploadFile)
+    let file = uploadFile.file
+    let suffix = file.name.substr(file.name.lastIndexOf('.'))
+    let stamp = new Date().getTime()
+    let fileName = `$${parseInt(
+      Math.random() * 10000000000000
+    )}_${stamp}${suffix}`
+    client.put(fileName, file).then(res=> {
+      uploadFile.onSuccess(res)
+    })
   }
   const handlePreview = (uploadFile)=> {
     dialogImageUrl.value = uploadFile.url;
@@ -37,35 +50,44 @@
     emit('update:fileList', uploadFiles)
   }
   const handleSuccess = (response, uploadFile, uploadFiles)=> {
-    emit('update:fileList', uploadFiles)
+    let files = uploadFiles.reduce((prev,cur)=> {
+      prev.push({
+        name: cur.response ? cur.response.name : cur.name,
+        url: cur.response ? cur.response.url : cur.url
+      })
+      return prev
+    }, [])
+    emit('update:fileList', files)
+    emit('setImage', files)
   }
   const beforeUpload = (file)=> {
-    if(file.type !== 'image/jpeg' || file.type !== 'image/png') {
-      Elmessage({
+    if(file.type !== 'image/jpeg' && file.type !== 'image/png') {
+      ElMessage({
         type: 'error',
         message: '上传图像格式只能是 jpg或png 格式！',
       })
       return false
-    }else if(file.size / 1024 / 1024 > sizeLimit) {
-      Elmessage({
+    }else if(file.size / 1024 / 1024 > props.sizeLimit) {
+      ElMessage({
         type: 'error',
-        message: `上传图像大小不能超过 ${sizeLimit}MB ！`,
+        message: `上传图像大小不能超过 ${props.sizeLimit}MB ！`,
       })
       return false
+    }else {
+      return true
     }
-    return true
   }
   const handleExceed = ()=> {
-    Elmessage({
-      type: 'warnning',
-      message: `最多能上传${limit}个文件`,
+    ElMessage({
+      type: 'warning',
+      message: `最多能上传${props.limit}个文件`,
     })
   }
 </script>
 
 <template>
   <el-upload
-    action="#"
+    :action="uploadUrl"
     :multiple="multiple"
     :file-list="fileList"
     :list-type="listType"
@@ -80,7 +102,7 @@
     <el-icon><i-ep-plus /></el-icon>
     <template #tip>
       <div class="el-upload__tip">
-        只能上传jpg/png文件，且不超过{{sizeLimit}}MB
+        {{sizeLimit}}MB以内,格式png、jpeg
       </div>
     </template>
   </el-upload>

@@ -9,31 +9,36 @@
     indexMethod,
     handleCurrPage,
     getTableData,
+    viewDetail,
+    add,
     router,
-    route
+    route,
+    proxy
   } = useList()
   const formData = reactive({
-    name: '',
-    status: '0'
+    rel_name: '',
+    status: 'NORMOL'
   })
   const search = ()=> {
-    // getTableData()
+    getTableData('/user', formData, 'get')
   }
   const reset = ()=> {
-    formData.name = ''
-    // getTableData()
+    formData.rel_name = ''
+    formData.status = 'NORMOL'
+    search()
   }
-  const add = ()=> {
-    router.push({
-      name: 'staffCreate'
+  const deleteRow = (id)=> {
+    proxy.$apis.userDel(id).then(res=> {
+      ElMessage({
+        type: 'success',
+        message: '删除成功'
+      })
+      search()
     })
   }
-  const viewDetail = (val)=> {
-    console.log(val)
-  }
-  const deleteRow = (val)=> {
-    console.log(val)
-  }
+  onActivated(()=> {
+    search()
+  })
 </script>
 
 <template>
@@ -47,12 +52,12 @@
         :model="formData"
       >
         <el-form-item label="真实姓名">
-          <el-input v-model="formData.name" placeholder="请输入真实姓名"></el-input>
+          <el-input v-model="formData.rel_name" placeholder="请输入真实姓名"></el-input>
         </el-form-item>
         <el-form-item label="是否禁用">
           <el-select v-model="formData.status">
-            <el-option label="是" value="1"></el-option>
-            <el-option label="否" value="0"></el-option>
+            <el-option label="是" value="DISABLE"></el-option>
+            <el-option label="否" value="NORMOL"></el-option>
           </el-select>
         </el-form-item>
       </el-form>
@@ -62,20 +67,24 @@
       </div>
     </div>
     <div class="py-2 border-b">
-      <el-button type="primary" @click="add">新增</el-button>
+      <el-button type="primary" @click="add('staffCreate')">新增</el-button>
     </div>
     <el-table
       :data="tableData"
       stripe
     >
-      <el-table-column label="#" type="index" :index="indexMethod"></el-table-column>
-      <el-table-column label="真实姓名" prop="name"></el-table-column>
-      <el-table-column label="性别" prop="name"></el-table-column>
-      <el-table-column label="手机号码" prop="name"></el-table-column>
-      <el-table-column label="是否禁用" prop="name"></el-table-column>
-      <el-table-column label="操作">
+      <el-table-column align="center" label="#" type="index" :index="indexMethod"></el-table-column>
+      <el-table-column align="center" label="真实姓名" prop="rel_name"></el-table-column>
+      <el-table-column align="center" label="性别" prop="sex"></el-table-column>
+      <el-table-column align="center" label="手机号码" prop="phone"></el-table-column>
+      <el-table-column align="center" label="是否禁用" prop="status">
         <template #default="scope">
-          <el-button type="primary" @click="viewDetail(scope.row.id)">详情</el-button>
+          {{scope.row.status == 'NORMOL' ? '否' : '是'}}
+        </template>
+      </el-table-column>
+      <el-table-column align="center" label="操作">
+        <template #default="scope">
+          <el-button type="primary" @click="viewDetail('staffUpdate',scope.row.id)">详情</el-button>
           <el-button type="danger" @click="deleteRow(scope.row.id)">删除</el-button>
         </template>
       </el-table-column>

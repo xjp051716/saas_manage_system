@@ -1,5 +1,6 @@
 <script setup>
   import useList from '../../hooks/useList'
+  import { release_status } from '../../config/enum'
   const {
     currPage,
     pageSize,
@@ -9,33 +10,37 @@
     indexMethod,
     handleCurrPage,
     getTableData,
+    viewDetail,
+    add,
     router,
-    route
+    route,
+    proxy
   } = useList()
   const formData = reactive({
     name: ''
   })
   const search = ()=> {
-    // getTableData()
+    getTableData('/notice', formData, 'get')
   }
   const reset = ()=> {
     formData.name = ''
-    // getTableData()
-  }
-  const add = ()=> {
-    router.push({
-      name: 'noticeCreate'
-    })
+    search()
   }
   const release = (val)=> {
     console.log(val)
   }
-  const viewDetail = (val)=> {
-    console.log(val)
+  const deleteRow = (id)=> {
+    proxy.$apis.noticeDel(id).then(res=> {
+      ElMessage({
+        type: 'success',
+        message: '删除成功'
+      })
+      search()
+    })
   }
-  const deleteRow = (val)=> {
-    console.log(val)
-  }
+  onActivated(()=> {
+    search()
+  })
 </script>
 
 <template>
@@ -58,21 +63,25 @@
       </div>
     </div>
     <div class="py-2 border-b">
-      <el-button type="primary" @click="add">新增</el-button>
+      <el-button type="primary" @click="add('noticeCreate')">新增</el-button>
     </div>
     <el-table
       :data="tableData"
       stripe
     >
-      <el-table-column label="#" type="index" :index="indexMethod"></el-table-column>
-      <el-table-column label="公告名称" prop="name"></el-table-column>
-      <el-table-column label="创建时间" prop="name"></el-table-column>
-      <el-table-column label="截至时间" prop="name"></el-table-column>
-      <el-table-column label="状态" prop="name"></el-table-column>
-      <el-table-column label="操作">
+      <el-table-column align="center" label="#" type="index" :index="indexMethod"></el-table-column>
+      <el-table-column align="center" label="公告名称" prop="name"></el-table-column>
+      <el-table-column align="center" label="创建时间" prop="created_at"></el-table-column>
+      <el-table-column align="center" label="截至时间" prop="end_dt"></el-table-column>
+      <el-table-column align="center" label="状态" prop="release_status">
         <template #default="scope">
-          <el-button type="primary" @click="release(scope.row.id)">发布</el-button>
-          <el-button type="primary" @click="viewDetail(scope.row.id)">详情</el-button>
+          {{release_status[scope.row.release_status]}}
+        </template>
+      </el-table-column>
+      <el-table-column align="center" label="操作" width="230">
+        <template #default="scope">
+          <el-button type="primary" @click="release(scope.row.id)" v-show="scope.row.release_status === 'NO_RELEASE'">发布</el-button>
+          <el-button type="primary" @click="viewDetail('noticeUpdate', scope.row.id)">详情</el-button>
           <el-button type="danger" @click="deleteRow(scope.row.id)">删除</el-button>
         </template>
       </el-table-column>

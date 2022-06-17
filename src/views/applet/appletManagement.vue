@@ -1,4 +1,5 @@
 <script setup>
+  import { build_status, examine_status } from '../../config/enum'
   import useList from '../../hooks/useList'
   const {
     currPage,
@@ -9,23 +10,34 @@
     indexMethod,
     handleCurrPage,
     getTableData,
-    route
+    route,
+    proxy
   } = useList()
   const search = ()=> {
-    // getTableData()
-  }
-  const handelStatus = (val)=> {
-    console.log(val)
+    getTableData('/mini_version_upload', {}, 'get')
   }
   const buildAll = ()=> {
 
   }
-  const buildApplet = (val)=> {
-    console.log(val)
+  const buildApplet = (row)=> {
+    // proxy.$apis.miniVersionUpload({
+    //   template_version: '1.0.0',
+    //   app_version: row.applet_version,
+    //   company_merchant_user_id: row.app_id
+    // }).then(res=> {
+    //   console.log(res)
+    // })
   }
-  const auditApplet = (val)=> {
-    console.log(val)
+  const auditApplet = (row)=> {
+  //   proxy.$apis.miniVersionAudit({
+      
+  //   }).then(res=> {
+
+  //   })
   }
+  onActivated(()=> {
+    search()
+  })
 </script>
 
 <template>
@@ -44,16 +56,24 @@
       :data="tableData"
       stripe
     >
-      <el-table-column label="#" type="index" :index="indexMethod"></el-table-column>
-      <el-table-column label="公司名称" prop="name"></el-table-column>
-      <el-table-column label="支付宝APPID" prop="name"></el-table-column>
-      <el-table-column label="是否构建" prop="name"></el-table-column>
-      <el-table-column label="审核状态" prop="name"></el-table-column>
-      <el-table-column label="小程序版本号" prop="name"></el-table-column>
-      <el-table-column label="操作">
+      <el-table-column align="center" label="#" type="index" :index="indexMethod"></el-table-column>
+      <el-table-column align="center" label="公司名称" prop="company_name"></el-table-column>
+      <el-table-column align="center" label="支付宝APPID" prop="app_id"></el-table-column>
+      <el-table-column align="center" label="是否构建" prop="build_or_not">
         <template #default="scope">
-          <el-button type="primary" @click="buildApplet(scope.row.id)">构建小程序</el-button>
-          <el-button type="danger" @click="auditApplet(scope.row.id)">提交审核</el-button>
+          {{build_status[scope.row.build_or_not]}}
+        </template>
+      </el-table-column>
+      <el-table-column align="center" label="审核状态" prop="examine_status">
+        <template #default="scope">
+          {{examine_status[scope.row.examine_status]}}
+        </template>
+      </el-table-column>
+      <el-table-column align="center" label="小程序版本号" prop="applet_version"></el-table-column>
+      <el-table-column align="center" label="操作" width="230">
+        <template #default="scope">
+          <el-button type="primary" @click="buildApplet(scope.row)">构建小程序</el-button>
+          <el-button type="danger" @click="auditApplet(scope.row)">提交审核</el-button>
         </template>
       </el-table-column>
     </el-table>

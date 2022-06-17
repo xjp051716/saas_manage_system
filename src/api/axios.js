@@ -4,8 +4,8 @@ import router from "../router";
 let options = {
   timeout: 60000,
   headers: {
-    "Content-type": "application/json;charset=UTF-8",
-    "access-control-allow-origin": "*"
+    "Content-Type": "application/json;charset=UTF-8",
+    "Access-Control-Allow-Origin": "*"
   }
 }
 const axiosInstance = axios.create(options)
