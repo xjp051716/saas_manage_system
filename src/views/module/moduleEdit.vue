@@ -39,9 +39,9 @@
     max: 9,
     tableParams: [{key: 'name', label: '菜单名称'}],
   }
-  const inputVisible = ref(false)
-  const inputRef = ref(null)
-  const inputValue = ref('')
+  // const inputVisible = ref(false)
+  // const inputRef = ref(null)
+  // const inputValue = ref('')
   const setMenu = (val)=> {
     if(val.length) {
       let exist = false;
@@ -53,30 +53,30 @@
       })
     }
   }
-  const handleInputConfirm = ()=> {
-    if(inputValue.value) {
-      addMenu(inputValue.value)
-    }
-    inputVisible.value = false
-    inputValue.value = ''
-  }
-  const addMenu = (name)=> {
-    proxy.$apis.menuAdd({
-      name
-    }).then(res=> {
-      ElMessage({
-        type: 'success',
-        message: '菜单新增成功',
-      })
-      formData.value.company_menus.push(res.data)
-    })
-  }
-  const showInput = ()=> {
-    inputVisible.value = true
-    nextTick(()=> {
-      inputRef.value.input.focus()
-    })
-  }
+  // const handleInputConfirm = ()=> {
+  //   if(inputValue.value) {
+  //     addMenu(inputValue.value)
+  //   }
+  //   inputVisible.value = false
+  //   inputValue.value = ''
+  // }
+  // const addMenu = (name)=> {
+  //   proxy.$apis.menuAdd({
+  //     name
+  //   }).then(res=> {
+  //     ElMessage({
+  //       type: 'success',
+  //       message: '菜单新增成功',
+  //     })
+  //     formData.value.company_menus.push(res.data)
+  //   })
+  // }
+  // const showInput = ()=> {
+  //   inputVisible.value = true
+  //   nextTick(()=> {
+  //     inputRef.value.input.focus()
+  //   })
+  // }
   const handleClose = (val)=> {
     formData.value.company_menus.splice(val, 1)
   }
@@ -141,8 +141,7 @@
                   size="large"
                   @close="handleClose(index)"
                 >{{tag.name}}</el-tag>
-                <el-input
-                  v-if="inputVisible"
+                <!-- <el-input
                   ref="inputRef"
                   v-model="inputValue"
                   class="mr-2 w-input"
@@ -151,7 +150,7 @@
                 ></el-input>
                 <el-button v-else class="mr-2" @click.stop="showInput">
                   + 自定义
-                </el-button> 
+                </el-button>  -->
               </div>
             </simple-select>
           </el-form-item>

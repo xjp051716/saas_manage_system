@@ -62,12 +62,20 @@
     }
   }
   const validatePassword = (rule, value, callback)=> {
-    if(value === '') {
-      callback(new Error('密码不能为空'))
-    }else if(!proxy.$regular.isNumber_AZdwon(value) || value.length < 6) {
-      callback(new Error('请输入数字、字母、下划线，6-20位字符'))
+    if(!id.value) {
+      if(value === '') {
+        callback(new Error('密码不能为空'))
+      }else if(!proxy.$regular.isNumber_AZdwon(value) || value.length < 6) {
+        callback(new Error('请输入数字、字母、下划线，6-20位字符'))
+      }else {
+        callback()
+      }
     }else {
-      callback()
+      if(value && (!proxy.$regular.isNumber_AZdwon(value) || value.length < 6)) {
+        callback(new Error('请输入数字、字母、下划线，6-20位字符'))
+      }else {
+        callback()
+      }
     }
   }
   const rules = reactive({
@@ -76,7 +84,7 @@
     company_user: [{ required: true, trigger: 'change', message: '请选择业务员' }],
     salesman: [{ validator: validateSalesman, trigger: 'blur', required: true }],
     username: [{ validator: validateUsername, trigger: 'blur', required: true }],
-    password: [{ validator: validatePassword, trigger: 'blur', required: true }],
+    password: [{ validator: validatePassword, trigger: 'blur' }],
     pid: [{ required: true, message: 'PID不能为空', trigger: 'blur' }],
     app_id: [{ required: true, message: 'APPID不能为空', trigger: 'blur' }],
     auth_code: [{ required: true, message: '授权码不能为空', trigger: 'blur' }],
@@ -136,7 +144,7 @@
       ref="submitForm"
       :model="formData"
       :rules="rules"
-      label-width="120px"
+      label-width="130px"
     >
       <el-row justify="space-around">
         <el-col :xs="12" :sm="11" :md="10" :lg="9" :xl="9">
@@ -185,7 +193,7 @@
             <el-input v-model="formData.username" placeholder="请输入账号" maxlength="20" :readonly="!!id"></el-input>
           </el-form-item>
           <el-form-item label="密码" prop="password">
-            <el-input type="password" v-model="formData.password" placeholder="请输入密码" maxlength="20"></el-input>
+            <el-input type="password" v-model="formData.password" :placeholder="!id ? '请输入密码' : '不修改请留空'" maxlength="20"></el-input>
           </el-form-item>
         </el-col>
       </el-row>

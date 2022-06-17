@@ -56,13 +56,20 @@
       callback()
     }
   }
+  const validatePassword1 = (rule, value, callback)=> {
+    if(value && (!proxy.$regular.isNumber_AZdwon(value) || value.length < 6)) {
+      callback(new Error('请输入数字、字母、下划线，6-20位字符'))
+    }else {
+      callback()
+    }
+  }
   const rules = reactive({
     rel_name: [{ validator: validateName, trigger: 'blur', required: true }],
     phone: [{ validator: validatePhone, trigger: 'blur', required: true }],
     username: [{ validator: validateUsername, trigger: 'blur', required: true }],
     password: [{ validator: validatePassword, trigger: 'blur', required: true }],
-    old_password: [{ validator: validatePassword, trigger: 'blur', required: true }],
-    new_password: [{ validator: validatePassword, trigger: 'blur', required: true }],
+    old_password: [{ validator: validatePassword1, trigger: 'blur', required: true  }],
+    new_password: [{ validator: validatePassword1, trigger: 'blur', required: true }],
     status: [{ required: true, message: '请选择是否禁用', trigger: 'change' }],
     sex: [{ required: true, message: '请选择性别', trigger: 'change' }],
     // head_image: [{ required: true, message: '请上传头像', trigger: 'change' }]
@@ -129,11 +136,11 @@
           <el-form-item label="密码" prop="password" v-if="!id">
             <el-input type="password" v-model="formData.password" placeholder="请输入密码" maxlength="20" autocomplete="new-password"></el-input>
           </el-form-item>
-          <el-form-item label="原密码" prop="old_password" v-if="id">
-            <el-input type="password" v-model="formData.old_password" placeholder="请输入原密码" maxlength="20" autocomplete="new-password"></el-input>
+          <el-form-item label="原密码" prop="old_password" v-if="!!id">
+            <el-input type="password" v-model="formData.old_password" placeholder="不修改请留空" maxlength="20" autocomplete="new-password"></el-input>
           </el-form-item>
-          <el-form-item label="新密码" prop="new_password" v-if="id">
-            <el-input type="password" v-model="formData.new_password" placeholder="不修改则输入原密码" maxlength="20" autocomplete="new-password"></el-input>
+          <el-form-item label="新密码" prop="new_password" v-if="!!id">
+            <el-input type="password" v-model="formData.new_password" placeholder="不修改请留空" maxlength="20" autocomplete="new-password"></el-input>
           </el-form-item>
         </el-col>
       </el-row>

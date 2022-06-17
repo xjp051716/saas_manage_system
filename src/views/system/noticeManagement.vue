@@ -26,8 +26,15 @@
     formData.name = ''
     search()
   }
-  const release = (val)=> {
-    console.log(val)
+  const release = (row)=> {
+    row.release_status = 'TAKE_RELEASE'
+    proxy.$apis.noticeUpdate(row).then(res=> {
+      ElMessage({
+        type: 'success',
+        message: '发布成功'
+      })
+      search()
+    })
   }
   const deleteRow = (id)=> {
     proxy.$apis.noticeDel(id).then(res=> {
@@ -80,7 +87,7 @@
       </el-table-column>
       <el-table-column align="center" label="操作" width="230">
         <template #default="scope">
-          <el-button type="primary" @click="release(scope.row.id)" v-show="scope.row.release_status === 'NO_RELEASE'">发布</el-button>
+          <el-button type="primary" @click="release(scope.row)" v-show="scope.row.release_status === 'NO_RELEASE'">发布</el-button>
           <el-button type="primary" @click="viewDetail('noticeUpdate', scope.row.id)">详情</el-button>
           <el-button type="danger" @click="deleteRow(scope.row.id)">删除</el-button>
         </template>
