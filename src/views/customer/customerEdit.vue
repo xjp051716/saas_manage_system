@@ -102,6 +102,11 @@
   const getModule = ()=> {
     proxy.$apis.modularity().then(res=> {
       moduleList.value = res.data
+      if(id.value) {
+        proxy.$apis.merchantDetail(id.value).then(res=> {
+          formData.value = res.data
+        })
+      }
     })
   }
   const setUser = (val)=> {
@@ -120,11 +125,6 @@
     id.value = route.query.id
     api_name.value = id.value ? 'merchantUpdate' : 'merchantAdd'
     getModule()
-    if(id.value) {
-      proxy.$apis.merchantDetail(id.value).then(res=> {
-        formData.value = res.data
-      })
-    }
   })
   
 </script>
@@ -162,8 +162,8 @@
               @confirm="setUser"
             ></simple-select>
           </el-form-item>
-          <el-form-item label="模块配置" prop="company_modularise">
-            <el-checkbox-group v-model="formData.company_modularise">
+          <el-form-item label="模块配置" prop="company_modular">
+            <el-checkbox-group v-model="formData.company_modular">
               <el-checkbox
                 v-for="item in moduleList"
                 :label="item.id"
