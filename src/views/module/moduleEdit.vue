@@ -125,19 +125,19 @@
         </el-col>
       </el-row>
       <el-row>
-        <el-col :xs="24" :sm="20" :md="16" :lg="12" :xl="8">
+        <el-col :span="24">
           <el-form-item label="菜单选择">
             <simple-select
               class="w-full"
               v-bind="post"
               @confirm="setMenu"
             >
-              <div class="flex items-center">
+              <div class="flex items-center flex-wrap">
                 <el-tag
                   v-for="(tag,index) in formData.company_menus"
                   :key="index"
                   closable
-                  class="mr-2"
+                  class="mr-4 mb-4"
                   size="large"
                   @close="handleClose(index)"
                 >{{tag.name}}</el-tag>
