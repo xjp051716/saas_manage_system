@@ -119,7 +119,7 @@
     }
   }
   const impower = ()=> {
-    window.open('https://openauth.alipay.com/oauth2/appToAppBatchAuth.htm?app_id=2021003126691188&application_type=TINYAPP,WEBAPP,MOBILEAPP,PUBLICAPP&redirect_uri=http%3A%2F%2Fmanage.magexiot.com%2Fv2%2Fali_merchant_authorize','blank')
+    window.open('https://openauth.alipay.com/oauth2/appToAppBatchAuth.htm?app_id=2021003126691188&application_type=TINYAPP,WEBAPP,MOBILEAPP,PUBLICAPP&redirect_uri=http%3A%2F%2Funioncs.magexiot.com%2Fv2%2Fcompany%2Fali_merchant_authorize%2F','blank')
   }
   onMounted(()=> {
     id.value = route.query.id
