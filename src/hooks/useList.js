@@ -48,8 +48,9 @@ export default function() {
       })
     }
     return proxy.$apis.getSimpleSelect(url, proxyData, proxyType).then(res=> {
-      let { total_count } = res.pagination
+      let { total_count, count } = res.pagination
       tableData.value = res.data
+      pageSize.value = count
       currPage.value = +proxyData.page_index
       total.value = total_count
     })
